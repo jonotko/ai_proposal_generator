@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model DefaultSectionTitle {
+  id          String   @id @default(cuid())
+  columnKey   String
+  title       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("default_section_titles")
+}
+
+model ProposalCustomSectionTitle {
+  id          String   @id @default(cuid())
+  defaultSectionTitleId  String
+  proposalId  String
+  customTitle       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("proposal_custom_section_titles")
+}
+model Proposal {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  introduction String
+  keyHighlights String
+  executiveSummary String
+  problemStatement String
+  proposedSolution String
+  valueProposition String
+  requirements String
+  methodology String
+  deliverables String
+  projectTeam String
+  companyOverview String
+  relevantExperiences String
+  clientReference String
+  description String
+  author      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("proposals")
+}
